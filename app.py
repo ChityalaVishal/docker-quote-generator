@@ -1,36 +1,236 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import random
 
 app = Flask(__name__)
 
-quotes = [
-    "Dream big, work hard.",
-    "Success starts with self-belief.",
-    "Every day is a second chance.",
-    "Push yourself, because no one else will.",
-    "Great things take time.",
-    "Success starts with showing up consistently.", 
-    "Small progress every day creates big results.", 
-    "Discipline will take you where motivation cannot.", 
-    "Your future is built by today’s decisions.", 
-     "Stay patient; growth takes time.", 
-     "Confidence comes from preparation.",
-     "Learn something new every single day.", 
-     "Hard work always leaves a mark.",
-     "Great things happen outside your comfort zone.", 
-     "Focus on progress, not perfection.",
-     "Dreams work when you do.", 
-     "Keep going even when no one notices.", 
-     "Every expert was once a beginner.", 
-     "Success is earned, not gifted.", 
-     "Your mindset shapes your reality.", 
-     "Consistency beats talent when talent gives up.", "Never underestimate the power of persistence.", "The grind today becomes the glory tomorrow.", "Start where you are and improve daily.", "Stay humble while building your empire.", "Growth begins at the end of excuses.", "Action creates opportunities.", "Pressure creates strong people.", "Make discipline your daily habit.", "The best investment is self-improvement.", "You become what you repeatedly do.", "Build skills that your future self will thank you for.", "Stay focused on your own journey.", "Success requires sacrifice.", "A strong work ethic never goes unnoticed.", "One step daily is still progress.", "Winners keep moving despite obstacles.", "Results come after consistent effort.", "Learn from failure instead of fearing it.", "Hard times create stronger minds.", "Stay hungry for growth.", "Professionalism is doing your best every day.", "Respect is earned through actions.", "Push yourself because nobody else can do it for you.", "Every challenge teaches something valuable.", "Success is built in silence.", "Your habits decide your future.", "Work smarter, but never stop working hard.", "Stay committed even when it gets difficult.", "Confidence grows through experience.", "Keep learning, keep improving.", "Time rewards disciplined people.", "Be proud of how far you’ve come.", "Never stop believing in your potential.", "Great careers are built one day at a time.", "Consistency creates credibility.", "Stay calm and trust the process.", "Difficult roads often lead to beautiful destinations.", "A focused mind achieves more.", "Success is the result of daily effort.", "Your attitude determines your direction.", "Don’t quit before the breakthrough.", "Strong minds turn struggles into strength.", "Patience and persistence are powerful together.", "Opportunities favor prepared people.", "Success starts with self-belief.", "Every setback is a setup for growth.", "Keep your goals bigger than your excuses.", "Work hard until your results speak.", "Improvement is a lifelong process.", "Stay dedicated to your vision.", "Build a life you are proud of.", "Growth feels uncomfortable because it’s real.", "Focus on becoming better, not just busier.", "The effort you put in today matters.", "Consistent effort creates unstoppable momentum.", "Stay disciplined even on difficult days.", "Every day is another chance to improve.", "Believe in your ability to adapt.", "Success requires courage and patience.", "Stay committed to your goals.", "Professional growth starts with responsibility.", "Hard work opens unexpected doors.", "Confidence is built through action.", "Keep moving even if progress feels slow.", "Learn to enjoy the journey.", "Strong habits create successful lives.", "Success loves preparation.", "Discipline creates freedom.", "Keep your standards high.", "Stay positive during the process.", "The best version of you is still growing.", "Don’t compare your journey to others.", "Learn, apply, improve, repeat.", "Every effort counts.", "Stay focused when distractions appear.", "Growth comes from consistent learning.", "Your future depends on your current effort.", "Professionalism begins with accountability.", "Never stop building yourself.", "Strong people stay calm under pressure.", "Success is built on discipline and patience.", "Progress is progress, no matter how small.", "Invest time in your dreams.", "Your work ethic becomes your reputation.", "Success takes dedication.", "Stay motivated by your purpose.", "Keep improving your skills.", "Great things require consistent effort.", "Stay humble and keep learning.", "The process matters as much as the result.", "Challenges reveal your strength.", "Focus on solutions, not excuses.", "Discipline creates long-term success.", "Stay determined during hard times.", "You are stronger than your doubts.", "Keep your vision clear.", "Growth comes through persistence.", "Your goals deserve effort.", "Consistency creates confidence.", "Success is earned one step at a time.", "Learn to handle pressure professionally.", "Stay patient with your progress.", "Hard work beats procrastination.", "Build habits that support your future.", "Keep striving for excellence.", "A positive mindset changes everything.", "Progress requires discipline.", "Every day is a chance to reset.", "Stay ambitious and grounded.", "Your dedication will pay off.", "Learn from criticism and grow.", "Confidence comes after effort.", "Don’t fear starting over.", "Keep your energy focused on goals.", "Success is built quietly.", "Stay committed to improvement.", "Every professional started with zero experience.", "Great achievements take time.", "Stay focused on what matters.", "Discipline is the bridge to success.", "Learn to trust your journey.", "Effort creates opportunities.", "Your mindset affects your performance.", "Stay consistent through every season.", "The strongest people keep trying.", "Focus on growth over validation.", "Build confidence through preparation.", "Hard work compounds over time.", "Every lesson adds value.", "Success begins with responsibility.", "Stay professional even under stress.", "Challenges are opportunities in disguise.", "Keep your goals visible.", "Your persistence will inspire others.", "Success comes from repeated effort.", "Discipline is self-respect in action.", "Every setback teaches resilience.", "Keep showing up for yourself.", "Stay patient with the process.", "Strong routines create strong results.", "Never stop developing your skills.", "Effort today creates opportunities tomorrow.", "Stay focused on long-term success.", "Greatness grows slowly.", "Learn to work through discomfort.", "Your consistency builds trust.", "Focus creates momentum.", "Keep improving behind the scenes.", "Success requires sacrifice and patience.", "Be proud of your discipline.", "Growth begins with self-awareness.", "Stay calm and keep pushing forward.", "Hard work eventually gets noticed.", "Your future depends on today’s actions.", "Keep learning from every experience.", "Strong minds stay solution-focused.", "Success is built during difficult days.", "Professional growth requires responsibility.", "Every challenge builds character.", "Stay dedicated to your purpose.", "Confidence is built through repetition.", "Discipline creates consistency.", "Success rewards patience.", "Keep moving despite setbacks.", "Great careers are built on persistence.", "Stay prepared for opportunities.", "Your mindset influences your success.", "Progress requires commitment.", "Build habits that match your goals.", "Stay focused during distractions.", "Every effort adds up eventually.", "Success starts with believing in yourself.", "Keep pushing through uncertainty.", "Growth happens outside comfort zones.", "Stay disciplined when motivation fades.", "Hard work creates confidence.", "Your dedication matters.", "Success requires long-term thinking.", "Learn to stay patient under pressure.", "Stay committed to improvement.", "Great things take consistency.", "Focus on becoming valuable.", "Every day is another opportunity.", "Keep building your future.", "Small habits create massive change.", "Stay positive during challenges.", "Your effort will create results.", "Consistency separates winners from quitters.", "Stay focused on your mission.", "Hard work builds strong character.", "Learn from every mistake.", "Growth comes from persistence.", "Stay committed even without instant results.", "Success takes discipline and patience.", "Every challenge improves your strength.", "Stay hungry for progress.", "Your future self is watching.", "Professionalism means showing up prepared.", "Keep working toward your goals.", "Success begins with daily discipline.", "Stay calm and stay consistent.", "Build confidence through action.", "Great things are created over time.", "Never stop investing in yourself.", "Success grows from persistence.", "Keep improving little by little.", "Your attitude shapes your outcomes.", "Stay disciplined through setbacks.", "Every effort matters.", "Learn to enjoy hard work.", "Stay committed to excellence.", "Growth requires patience.", "Your consistency will pay off.", "Keep pushing beyond limits.", "Discipline creates opportunities.", "Stay determined despite obstacles.", "Success comes from preparation and effort.", "Every lesson helps you grow.", "Build a mindset focused on improvement.", "Stay strong during difficult phases.", "Your goals deserve dedication.", "Success is built step by step.", "Keep learning and adapting.", "Great professionals never stop improving.", "Stay focused on meaningful progress.", "Hard work turns dreams into reality.", "Confidence comes from consistent practice.", "Stay patient and trust yourself.", "Success rewards persistence.", "Keep striving for better.", "Growth begins with action.", "Stay disciplined and motivated.", "Every day is a fresh opportunity.", "Your journey is worth the effort."
-]
+thoughts_list = []
 
-@app.route('/')
+quotes_data = {
+    "study": {
+        "quotes": [
+            "Your opinion shapes your future.",
+            "Think wisely before judging.",
+            "Different opinions create new ideas.",
+"Studying while everyone sleeps hits differently.",
+    "That one chapter you avoid may decide your future.",
+    "Silent study sessions create loud success stories.",
+    "A tired student today becomes a successful person tomorrow.",
+    "The pressure you feel now is shaping your future.",
+    "One focused semester can change your entire life.",
+    "Students who stay consistent always stand out later.",
+    "Every mark carries a story nobody sees.",
+    "Studying feels temporary, regret feels permanent.",
+    "You are closer to success than your stress makes you believe.",
+    "The student life nobody respects now becomes the success everyone admires later.",
+    "Some students fight battles nobody notices.",
+    "Every small effort matters during exam season.",
+    "The future belongs to students who don’t give up midway.",
+    "Focus now so you can relax later.",
+    "Books become powerful when combined with discipline.",
+    "The dream job starts with boring study sessions.",
+    "The strongest students are built during stressful nights.",
+    "Your study table knows your real struggle.",
+    "Success in studies is mostly consistency and patience.",
+    "A focused student can defeat distractions and pressure.",
+    "Study until opportunities start recognizing your name.",
+    "Every sacrifice today becomes comfort tomorrow.",
+    "Late-night studying creates early-life success.",
+    "You are building your future one page at a time.",
+    "The student who survives pressure becomes mentally strong.",
+    "The effort nobody sees creates results nobody can ignore.",
+    "Study now so life becomes easier later.",
+    "Your dedication today becomes your confidence tomorrow.",
+    "One exam doesn’t define you, but your effort does.",
+    "A disciplined student eventually wins.",
+    "Every chapter completed is progress.",
+    "Hard study seasons create strong people.",
+    "Students who stay patient always improve.",
+    "A successful future is hidden inside daily study habits.",
+    "The grind behind good grades is never visible.",
+    "Keep studying even when motivation disappears.",
+    "Every topper once struggled too.",
+    "Success starts from one decision to stay serious.",
+    "The student who refuses to quit always grows."
+
+        ],
+        "image": "opinion.jpg"
+    },
+
+    "Situation": {
+        "quotes": [
+            "Every situation teaches something.",
+            "Difficult roads lead to beautiful places.",
+            "Stay calm in every situation."
+        ],
+        "image": "situation.jpg"
+    },
+
+    "Situational": {
+        "quotes": [
+            "Adapt according to situations.",
+            "Strong people survive every condition.",
+            "Every challenge builds strength."
+        ],
+        "image": "situational.jpg"
+    },
+
+    "fitness": {
+        "quotes": [
+             "Fitness is a battle against your excuses.",
+    "The body improves when the mind stays disciplined.",
+    "Every workout builds confidence slowly.",
+    "Results come from consistency, not motivation.",
+    "The gym changes both body and mindset.",
+    "Nobody regrets finishing a workout.",
+    "Strong bodies are built during difficult days.",
+    "Fitness teaches patience and discipline together.",
+    "Every drop of sweat is progress.",
+    "Transformation takes time, consistency, and sacrifice.",
+    "Excuses never burn calories.",
+    "The mirror reflects your habits.",
+    "Fitness is self-respect in action.",
+    "A healthy routine creates a healthier mindset.",
+    "The hardest workout is the one you skip.",
+    "Your body hears everything your mind says.",
+    "Progress feels slow until people start noticing.",
+    "Workout now so your future self feels proud.",
+    "Discipline in fitness improves every area of life.",
+    "Strong habits create strong physiques.",
+    "Fitness is earned daily.",
+    "The gym reveals who stays consistent under pressure.",
+    "Every rep builds mental strength too.",
+    "Your future body depends on today’s choices.",
+    "Real confidence starts with self-care.",
+    "Fitness is painful sometimes, but regret hurts longer.",
+    "The strongest people once struggled with basics too.",
+    "Every workout is an investment in yourself.",
+    "Results happen quietly before becoming visible.",
+    "Train because your health matters.",
+    "A healthy body improves your energy and focus.",
+    "Consistency changes bodies more than intensity.",
+    "Fitness is not temporary motivation, it is lifestyle discipline.",
+    "The pain of training creates the pride of transformation.",
+    "Workout even when motivation disappears.",
+    "Strong minds create strong bodies.",
+    "People notice results, not the effort behind them.",
+    "The goal is progress, not perfection.",
+    "Your health becomes valuable when it starts disappearing.",
+    "Fitness is one of the best forms of self-investment."
+        ],
+        "image": "motivational.jpg"
+    },
+
+    "success": {
+        "quotes": [
+             "Success usually starts where comfort ends.",
+    "People admire success but ignore the sacrifices behind it.",
+    "Your current situation is not your final destination.",
+    "One year of discipline can completely transform your life.",
+    "Success is built during lonely seasons.",
+    "Nobody notices the struggle before the results appear.",
+    "The comeback always starts with pain.",
+    "Winners continue even when they feel tired.",
+    "Your habits silently decide your future.",
+    "Successful people are ordinary people with extraordinary consistency.",
+    "The road to success becomes easier after self-discipline.",
+    "Every successful person once doubted themselves too.",
+    "Success grows slowly before it becomes visible.",
+    "The strongest people are created during difficult times.",
+    "Your sacrifices today become your success tomorrow.",
+    "Success is earned quietly and celebrated loudly.",
+    "Pressure creates stronger versions of people.",
+    "The hardest phase usually comes before success.",
+    "People respect results more than excuses.",
+    "Every successful journey begins with one serious decision.",
+    "The life you dream about requires daily effort.",
+    "You become dangerous once you stop doubting yourself.",
+    "Success belongs to people who stay consistent.",
+    "A focused mind creates powerful results.",
+    "The grind feels painful until the results arrive.",
+    "Every small step matters during the success journey.",
+    "Success is patience mixed with discipline.",
+    "Your mindset decides your direction.",
+    "The person who survives failures becomes fearless.",
+    "Dreams only work when actions support them.",
+    "Consistency beats motivation every time.",
+    "Great things happen when excuses disappear.",
+    "Success starts from controlling your distractions.",
+    "Your future changes when your priorities change.",
+    "The struggle phase is temporary.",
+    "Every successful story once looked impossible.",
+    "Confidence grows after repeated effort.",
+    "Successful people master discipline first.",
+    "The strongest comeback stories begin from rock bottom.",
+    "Success rewards people who refuse to stop."
+        ],
+        "image": "motive.jpg"
+    },
+
+    "Motivation": {
+        "quotes": [
+            "Dream big and achieve bigger.",
+            "Consistency beats talent.",
+            "Work hard silently."
+        ],
+        "image": "motivation.jpg"
+    }
+}
+
+@app.route("/")
 def home():
-    quote = random.choice(quotes)
-    return render_template('index.html', quote=quote)
+    return render_template("home.html")
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+@app.route("/quotes")
+def quotes():
+
+    category = random.choice(
+        list(quotes_data.keys())
+    )
+
+    quote = random.choice(
+        quotes_data[category]["quotes"]
+    )
+
+    return render_template(
+        "quotes.html",
+        category=category,
+        quote=quote
+    )
+@app.route("/gallery")
+def gallery():
+
+    images = [
+        "opinion.jpg",
+        "situation.jpg",
+        "situational.jpg",
+        "motivational.jpg",
+        "motive.jpg",
+        "motivation.jpg"
+    ]
+
+    return render_template(
+        "gallery.html",
+        images=images
+    )
+
+@app.route("/thoughts", methods=["GET", "POST"])
+def thoughts():
+
+    if request.method == "POST":
+
+        thought = request.form.get("thought")
+
+        if thought:
+            thoughts_list.append(thought)
+
+    return render_template(
+        "thoughts.html",
+        thoughts=thoughts_list
+    )
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

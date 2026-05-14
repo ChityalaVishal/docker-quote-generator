@@ -1,64 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Daily Quote Generator</title>
+    <title>Motivation Hub</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-        }
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0f172a;
+    color:white;
+}
 
-        .card {
-            background: white;
-            padding: 40px;
-            width: 500px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
+.container{
+    width:90%;
+    max-width:900px;
+    margin:40px auto;
+    text-align:center;
+}
 
-        h1 {
-            color: #333;
-        }
+.card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
 
-        p {
-            font-size: 22px;
-            color: #555;
-            margin: 30px 0;
-        }
+img{
+    width:100%;
+    border-radius:15px;
+    height:450px;
+    object-fit:cover;
+}
 
-        button {
-            padding: 12px 20px;
-            border: none;
-            background: #4facfe;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+h1{
+    color:#38bdf8;
+}
 
-        button:hover {
-            background: #00c6fb;
-        }
-    </style>
+.quote{
+    font-size:28px;
+    margin:20px 0;
+    font-style:italic;
+}
+
+.category{
+    font-size:18px;
+    color:#94a3b8;
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    background:#38bdf8;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+button:hover{
+    background:#0ea5e9;
+}
+</style>
+
 </head>
 
 <body>
 
-<div class="card">
-    <h1>✨ Daily Quote Generator</h1>
+<div class="container">
 
-    <p>"{{ quote }}"</p>
+    <h1>🔥 Quote Generator</h1>
 
-    <button onclick="window.location.reload()">
-        Generate New Quote
-    </button>
+    <div class="card">
+
+        <img src="{{ url_for('static', filename='images/' + image) }}">
+
+        <p class="category">{{ category }} Motivation and more</p>
+
+        <p class="quote">"{{ quote }}"</p>
+
+        <button onclick="window.location.reload()">
+            Generate New Motivation
+        </button>
+
+    </div>
+
 </div>
 
 </body>
